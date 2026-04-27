@@ -1,6 +1,7 @@
 package fideburguesas.view;
 
 import fideburguesas.logic.Facturador;
+import fideburguesas.model.ElementoMenu;
 import fideburguesas.model.Producto;
 import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
@@ -217,6 +218,7 @@ public FrmCajero() {
     
     actualizarTabla();
     
+    
     }//GEN-LAST:event_btnBebidaActionPerformed
 
     
@@ -237,6 +239,16 @@ public FrmCajero() {
     private javax.swing.JTextPane jTextPane1;
     private java.awt.TextField textField1;
     // End of variables declaration//GEN-END:variables
+
+    private void actualizarTabla() {
+    
+    javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) jTable2.getModel();
+    modelo.setRowCount(0);
+    
+    for (ElementoMenu item : ordenActual.getItems()) {
+        modelo.addRow(new Object[]{item.getNombre(), item.calcularPrecioFinal()});
+    }
+}
 
 }
 

@@ -48,11 +48,13 @@ public class Orden {
         return idOrden;
     }
 
-    public Iterable<Producto> getListaProductos() {
-        throw new UnsupportedOperationException("Not supported yet."); 
+    public ArrayList<ElementoMenu> getListaProductos() {
+    return items; 
     }
 
-    public void agregarElemento(Producto bebida) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void agregarElemento(ElementoMenu item) {
+        if (item != null) {
+            items.add(item);
+        }
     }
 }
