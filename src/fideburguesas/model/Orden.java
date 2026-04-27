@@ -51,4 +51,8 @@ public class Orden {
     public Iterable<Producto> getListaProductos() {
         throw new UnsupportedOperationException("Not supported yet."); 
     }
+
+    public void agregarElemento(Producto bebida) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

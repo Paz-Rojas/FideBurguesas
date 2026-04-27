@@ -40,7 +40,7 @@ public class FrmLogin extends javax.swing.JFrame {
 
         jLabel1.setText("Usuario ");
 
-        jLabel2.setText("Contrasena");
+        jLabel2.setText("Contraseña");
 
         btnIngresar.setText("Ingresar");
         btnIngresar.addActionListener(this::btnIngresarActionPerformed);
