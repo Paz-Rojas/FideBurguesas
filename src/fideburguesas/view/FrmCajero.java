@@ -242,7 +242,7 @@ public FrmCajero() {
 
     private void actualizarTabla() {
     
-    javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) jTable2.getModel();
+   javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) jTable2.getModel();
     modelo.setRowCount(0);
     
     for (ElementoMenu item : ordenActual.getItems()) {
