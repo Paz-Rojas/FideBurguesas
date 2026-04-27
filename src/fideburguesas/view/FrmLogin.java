@@ -104,7 +104,7 @@ public class FrmLogin extends javax.swing.JFrame {
     String pass = new String(txtPassword.getPassword());
 
     
-    if (user.equals("admin") && pass.equals("fideburgue")) {
+    if (user.equals("Mari") && pass.equals("fideburgue")) {
         FrmCajero cajero = new FrmCajero();
         cajero.setVisible(true);
         this.dispose(); 
