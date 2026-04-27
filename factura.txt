@@ -1,8 +1,8 @@
 ========== FIDEBURGUESAS ==========
-Factura N: 101
+Factura N: 102
 -----------------------------------
 Combo Familiar ....... ₡8500.0
-Hamburguesa Simple ....... ₡3000.0
+Refresco Natural ....... ₡1000.0
 -----------------------------------
-TOTAL A PAGAR: ₡11500.0
+TOTAL A PAGAR: ₡9500.0
 ===================================
