@@ -216,7 +216,7 @@ public FrmCajero() {
     ordenActual.agregarElemento(bebida);
     
     actualizarTabla();
-}      
+    
     }//GEN-LAST:event_btnBebidaActionPerformed
 
     
