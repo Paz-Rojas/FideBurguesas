@@ -1,23 +1,24 @@
-name: Laboratorio de Seguridad - SAST
+name: Mi Laboratorio - SBOM (Dependencias)
 
 on:
-  push:
-    branches: [ "principal" ] # Se activa al subir código a tu rama principal
-  workflow_dispatch: # Te permite activar el escaneo manualmente con un botón
+  workflow_dispatch: # Lo activamos con el botón verde manual
 
 jobs:
-  escaneo-sast:
+  sbom-scan:
     runs-on: ubuntu-latest
     steps:
-      - name: 1. Clonar codigo de FideBurguesas
+      - name: 1. Clonar mi codigo de FideBurguesas
         uses: actions/checkout@v4
 
-      - name: 2. Instalar herramienta Semgrep
-        run: pip install semgrep
+      - name: 2. Instalar Syft (Generador)
+        run: curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
 
-      - name: 3. Ejecutar analisis de seguridad en codigo Java
-        # Escanea tus carpetas de construcción y clases buscando malas prácticas
-        run: semgrep --config "p/owasp-top-ten" --json --output=reporte-sast.json .
+      - name: 3. Instalar Trivy (Escáner)
+        run: |
+          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
 
-      - name: 4. Imprimir hallazgos en consola
-        run: cat reporte-sast.json
+      - name: 4. Generar Inventario de Software
+        run: syft packages dir:. -o cyclonedx-json > mi-sbom.json
+
+      - name: 5. Analizar librerías (Modo permisivo para pruebas)
+        run: trivy sbom mi-sbom.json
