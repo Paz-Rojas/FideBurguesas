@@ -1,0 +1,27 @@
+name: Mi Laboratorio - SBOM (Dependencias)
+
+on:
+  workflow_dispatch: # Lo activamos con el botón verde manual
+
+jobs:
+  sbom-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 1. Clonar mi codigo de FideBurguesas
+        uses: actions/checkout@v4
+
+      - name: 2. Instalar Syft (Generador)
+        run: curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
+
+      - name: 3. Instalar Trivy (Escáner)
+        run: |
+          wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | gpg --dearmor | sudo tee /usr/share/keyrings/trivy.gpg > /usr/bin/null
+          echo "deb [signed-by=/usr/share/keyrings/trivy.gpg] https://aquasecurity.github.io/trivy-repo/deb/generic any main" | sudo tee /etc/apt/sources.list.d/trivy.list
+          sudo apt-get update && sudo apt-get install trivy -y
+
+      - name: 4. Generar Inventario de Software
+        run: syft packages dir:. -o cyclonedx-json > mi-sbom.json
+
+      - name: 5. Analizar librerías (Modo permisivo para pruebas)
+        # No le ponemos bloqueo estricto para que puedas ver el reporte completo en verde
+        run: trivy sbom mi-sbom.json
