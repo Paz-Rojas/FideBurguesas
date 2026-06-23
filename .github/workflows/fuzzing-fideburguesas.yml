@@ -1,0 +1,33 @@
+name: Mi Laboratorio - Fuzzing (Robustez)
+
+on:
+  workflow_dispatch: # Activación manual para pruebas rápidas
+
+jobs:
+  fuzzing-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 1. Clonar mi repositorio
+        uses: actions/checkout@v4
+
+      - name: 2. Instalar Radamsa (Mutador de datos)
+        run: |
+          sudo apt-get update && sudo apt-get install -y gcc make git
+          git clone https://gitlab.com/akihe/radamsa.git
+          cd radamsa && make && sudo make install
+
+      - name: 3. Crear una orden de hamburguesa base en JSON
+        run: |
+          mkdir inputs_prueba
+          echo '{"producto": "Hamburguesa Fide", "cantidad": 2, "cliente": "Mari"}' > inputs_prueba/base.json
+
+      - name: 4. Ejecutar 10 pruebas con datos corruptos aleatorios
+        run: |
+          mkdir outputs_prueba
+          for i in {1..10}; do
+            echo "--- Iteración de Fuzzing #$i ---"
+            # Radamsa deforma el JSON original creando combinaciones extrañas
+            radamsa inputs_prueba/base.json > outputs_prueba/mutado_$i.json
+            cat outputs_prueba/mutado_$i.json
+            echo -e "\n"
+          done
