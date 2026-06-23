@@ -15,9 +15,7 @@ jobs:
 
       - name: 3. Instalar Trivy (Escáner)
         run: |
-          wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | gpg --dearmor | sudo tee /usr/share/keyrings/trivy.gpg > /usr/bin/null
-          echo "deb [signed-by=/usr/share/keyrings/trivy.gpg] https://aquasecurity.github.io/trivy-repo/deb/generic any main" | sudo tee /etc/apt/sources.list.d/trivy.list
-          sudo apt-get update && sudo apt-get install trivy -y
+          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
 
       - name: 4. Generar Inventario de Software
         run: syft packages dir:. -o cyclonedx-json > mi-sbom.json
