@@ -1,0 +1,19 @@
+name: Mi Laboratorio - DAST (Análisis Dinámico)
+
+on:
+  workflow_dispatch: # Lo activamos manualmente con el botón verde
+
+jobs:
+  dast-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 1. Clonar mi repositorio
+        uses: actions/checkout@v4
+
+      - name: 2. Ejecutar Escaneo Dinámico Base (OWASP ZAP)
+        uses: zaproxy/action-baseline@v0.13.0
+        with:
+          # Usamos una URL pública segura para ver el comportamiento de la herramienta
+          target: 'https://example.com'
+          # Lo dejamos en false para que, si encuentra alertas estéticas, el flujo termine en verde de igual forma
+          fail_action: false
