@@ -1,0 +1,23 @@
+name: Laboratorio de Seguridad - SAST
+
+on:
+  push:
+    branches: [ "principal" ] # Se activa al subir código a tu rama principal
+  workflow_dispatch: # Te permite activar el escaneo manualmente con un botón
+
+jobs:
+  escaneo-sast:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 1. Clonar codigo de FideBurguesas
+        uses: actions/checkout@v4
+
+      - name: 2. Instalar herramienta Semgrep
+        run: pip install semgrep
+
+      - name: 3. Ejecutar analisis de seguridad en codigo Java
+        # Escanea tus carpetas de construcción y clases buscando malas prácticas
+        run: semgrep --config "p/owasp-top-ten" --json --output=reporte-sast.json .
+
+      - name: 4. Imprimir hallazgos en consola
+        run: cat reporte-sast.json
