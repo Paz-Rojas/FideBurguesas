@@ -11,7 +11,7 @@ jobs:
       - name: Clonar repositorio
         uses: actions/checkout@v4
 
-      # Configuración del entorno de ejecución (Ejemplo basado en un backend de Java, se puede ajustar al lenguaje de VADI)
+      # Configuración del entorno de ejecución (Ejemplo basado en un backend de Java, ajusta al lenguaje de VADI)
       - name: Configurar Entorno de Ejecución
         uses: actions/setup-java@v3
         with:
