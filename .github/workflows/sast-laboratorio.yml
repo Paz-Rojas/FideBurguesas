@@ -1,24 +1,28 @@
-name: Mi Laboratorio - SBOM (Dependencias)
+name: VADI - Seguridad SAST (Semgrep)
 
 on:
-  workflow_dispatch: # Lo activamos con el botón verde manual
+  push:
+    branches: [ "main", "master", "develop" ]
+  pull_request:
+    branches: [ "main", "master" ]
 
 jobs:
-  sbom-scan:
+  sast-scan:
     runs-on: ubuntu-latest
     steps:
-      - name: 1. Clonar mi codigo de FideBurguesas
+      - name: Clonar repositorio de VADI
         uses: actions/checkout@v4
 
-      - name: 2. Instalar Syft (Generador)
-        run: curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
+      - name: Instalar Semgrep
+        run: pip install semgrep
 
-      - name: 3. Instalar Trivy (Escáner)
-        run: |
-          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
+      - name: Ejecutar Análisis Preventivo Estricto
+        # El parámetro '--error' hace que si se detecta un fallo crítico, el pipeline falle (rojo) 
+        # bloqueando el flujo de trabajo para obligar a corregir el código.
+        run: semgrep --config "p/owasp-top-ten" --error --json --output=reporte-sast-vadi.json .
 
-      - name: 4. Generar Inventario de Software
-        run: syft packages dir:. -o cyclonedx-json > mi-sbom.json
-
-      - name: 5. Analizar librerías (Modo permisivo para pruebas)
-        run: trivy sbom mi-sbom.json
+      - name: Archivar Reporte de Código Fuente
+        uses: actions/upload-artifact@v4
+        with:
+          name: reporte-sast-vadi
+          path: reporte-sast-vadi.json
