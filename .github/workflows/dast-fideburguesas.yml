@@ -1,7 +1,7 @@
 name: Mi Laboratorio - DAST (Análisis Dinámico)
 
 on:
-  workflow_dispatch: # Activación manual con el botón verde
+  workflow_dispatch:
 
 jobs:
   dast-scan:
@@ -23,7 +23,5 @@ jobs:
           echo "[INFO] Enviando peticiones de prueba (Spidering) a la URL..."
           echo "[INFO] Buscando vulnerabilidades de Cross-Site Scripting (XSS)..."
           echo "[INFO] Validando políticas de seguridad en las cabeceras HTTP..."
-          echo "[INFO] Verificando exposición de cookies de sesión..."
           echo "----------------------------------------------------------------"
           echo "✓ ESCANEO COMPLETADO CON ÉXITO"
-          echo "Resultado: 0 Amenazas críticas expuestas en el servidor web."
