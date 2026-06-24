@@ -1,19 +1,19 @@
-name: Mi Laboratorio - DAST (Análisis Dinámico)
+name: Laboratorio - Seguridad Dinámica (DAST)
 
 on:
-  workflow_dispatch: # Lo activamos manualmente con el botón verde
+  workflow_dispatch: # Se ejecuta manualmente a demanda del equipo de seguridad
 
 jobs:
   dast-scan:
     runs-on: ubuntu-latest
     steps:
-      - name: 1. Clonar mi repositorio
+      - name: Clonar repositorio
         uses: actions/checkout@v4
 
-      - name: 2. Ejecutar Escaneo Dinámico Base (OWASP ZAP)
+      - name: Ejecutar Ataque Simulado (OWASP ZAP)
         uses: zaproxy/action-baseline@v0.13.0
         with:
-          # Usamos una URL pública segura para ver el comportamiento de la herramienta
-          target: 'https://example.com'
-          # Lo dejamos en false para que, si encuentra alertas estéticas, el flujo termine en verde de igual forma
-          fail_action: false
+          # IMPORTANTE: Cambia esta URL por la del entorno interno de pruebas o QA de VADI. 
+          # NUNCA uses la URL de producción comercial de la empresa para evitar caídas del servicio.
+          target: 'https://qa-pruebas.vadi-interno.com'
+          fail_action: true # Notifica fallos en rojo si la web activa es vulnerable
