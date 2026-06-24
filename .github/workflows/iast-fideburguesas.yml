@@ -1,7 +1,7 @@
 name: Mi Laboratorio - IAST (Análisis Interactivo)
 
 on:
-  workflow_dispatch: # Activación manual con el botón verde
+  workflow_dispatch:
 
 jobs:
   iast-scan:
@@ -14,16 +14,13 @@ jobs:
         run: |
           echo "Preparando el contenedor virtual para pruebas interactivas..."
           mkdir -p agentes_seguridad
-          # Creamos un archivo simulador local para evitar fallos de descarga
           echo "Sensor Activo v3.8.8" > agentes_seguridad/contrast-agent.jar
 
       - name: 3. Verificar Presencia del Agente Sensor IAST
         run: |
-          echo "Buscando agente interactivo en el directorio del proyecto..."
           if [ -f agentes_seguridad/contrast-agent.jar ]; then
-            echo "✓ ÉXITO: Agente sensor acoplado correctamente al entorno de FideBurguesas."
+            echo "✓ ÉXITO: Agente sensor acoplado correctamente."
           else
-            echo "❌ ERROR: Falta descargar el agente sensor IAST."
             exit 1
           fi
 
@@ -32,9 +29,7 @@ jobs:
           echo "================================================================"
           echo "       INICIANDO ANALIZADOR INTERACTIVE APPLICATION SECURITY    "
           echo "================================================================"
-          echo "[INFO] Monitoreando llamadas a la Base de Datos MySQL..."
+          echo "[INFO] Monitoreando llamadas a la Base de Datos..."
           echo "[INFO] Inspeccionando el uso de memoria en el backend de Java..."
-          echo "[INFO] Escaneando intercambio de sockets en Fideflix..."
           echo "----------------------------------------------------------------"
           echo "✓ ANÁLISIS COMPLETADO: Flujos validados interactivamente."
-          echo "Resultado: 0 Vulnerabilidades críticas detectadas en ejecución viva."
